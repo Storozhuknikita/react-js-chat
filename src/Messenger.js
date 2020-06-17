@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-
 import {MessageForm} from './MessageForm';
 
 export class Messenger extends Component {
@@ -32,11 +31,18 @@ export class Messenger extends Component {
                 });
             }, 2000);
         }
-    }
+    };
 
     handleMessageSend = (message) => {
-        console.log(message);
-    }
+        //console.log(message);
+        this.setState({
+            messages: this.state.messages.concat([{text: message.text, author: message.author}])
+        });
+        //console.log(this.state.messages)
+        /*this.setState({
+            messages: this.state.messages.concat([{text: message, author: 'TEST'}])
+        });*/
+    };
 
 
     render()

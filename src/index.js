@@ -16,9 +16,7 @@ import './main.scss';
 
 //Вариант 2. JSX
 const element = (<h1 className="react-second" id="test2">Hello, React.js!</h1>);
-
 const messagesData = ['Hi!', 'Hello', 'Привет!', 'Сообщение 1'];
-
 const Message = (props) => <div className="test">{props.text}</div>;
 
 const MessagesList = ({data}) => {
