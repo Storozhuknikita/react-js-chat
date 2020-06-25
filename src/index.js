@@ -1,10 +1,14 @@
 import React from 'react';
 import ReactDom from 'react-dom';
+import {BrowserRouter, Switch, Route, HashRouter, MemoryRouter, StaticRouter} from 'react-router-dom';
 
-import {Messenger} from './components/Messenger';
-
+import {routes} from './routes';
 
 ReactDom.render(
-    <Messenger />,
+    <BrowserRouter>
+        <Switch>
+            {routes.map((route, index) => <Route key={index} {...route} />)}
+        </Switch>
+    </BrowserRouter>,
     document.getElementById('root')
 );
