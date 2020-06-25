@@ -1,3 +1,9 @@
 body {
-    background: chocolate;
-}
+  background-color: orange; }
+
+.message-item {
+  color: orange; }
+
+.message:hover {
+  color: red; }
+

@@ -8,13 +8,19 @@ module.exports = {
         path: path.resolve(__dirname, 'dist'),
         filename: 'bundle.js',
     },
+    resolve: {
+        extensions: ['.js', '.jsx'],
+        alias: {
+            components: path.resolve(__dirname, 'src', 'components'),
+        }
+    },
 
     module: {
         rules: [
-            {
-                test: /\.js$/,
-                exclude: /node_modules/,
-                loader: "babel-loader"
+          { 
+              test: /\.jsx?$/, 
+              exclude: /node_modules/, 
+              loader: "babel-loader" 
             },
             {
                 test: /\.s?css$/i,
@@ -26,7 +32,7 @@ module.exports = {
                 ],
             },
         ]
-    },
+      },
 
     plugins: [
         new HtmlWebpackPlugin({
@@ -35,6 +41,6 @@ module.exports = {
         }),
         new MiniCssExtractPlugin({
             filename: 'main.css',
-        }),
+          }),
     ],
 };
