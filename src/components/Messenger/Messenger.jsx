@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {List, ListItem, ListItemText} from '@material-ui/core';
+import {List, ListItem, ListItemText, Button} from '@material-ui/core';
 import {Link} from 'react-router-dom';
 
 import {MessageForm} from 'components/MessageForm';
@@ -32,7 +32,7 @@ export class Messenger extends Component {
 
     render()
     {
-        const {chats, messages, sendMessage} = this.props
+        const {chats, messages, sendMessage, addChat} = this.props
         return (
             <div className="messenger">
                 <List>
@@ -42,6 +42,9 @@ export class Messenger extends Component {
                             <ListItemText primary={chat.name} />
                         </Link>
                     </ListItem>)}
+                    <Button onClick={addChat}>
+                        <ListItemText primary="Create chat" />
+                    </Button>
                 </List>
                 {messages ? <MessageList items={messages} /> : 'Пожалуйста, выберите чат'}
                 {messages && <MessageForm onSend={sendMessage} />}

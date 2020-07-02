@@ -1,4 +1,4 @@
-import {CHATS_LOAD, CHATS_SEND} from 'actions/chats';
+import {CHATS_LOAD, CHATS_SEND, CHATS_ADD} from 'actions/chats';
 import update from 'react-addons-update';
 
 const dataBackend = {
@@ -78,6 +78,16 @@ export const chatsReducer = (state = initialState, action) => {
                             messages: {$push: [{text: action.payload.text, author: action.payload.author}]},
                         }
                     }
+                });
+            case CHATS_ADD:
+                const {name, chatId} = action.payload;
+                return update(state, {
+                    entries: {$merge: {
+                        [chatId]: {
+                            messages: [],
+                            name,
+                        }
+                    }}
                 });
         default:
             return state;
