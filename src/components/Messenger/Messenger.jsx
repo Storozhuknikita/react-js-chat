@@ -8,39 +8,8 @@ import {MessageList} from 'components/MessageList';
 import './Messenger.css';
 
 export class Messenger extends Component {
-    state = {
-        chats: {
-            '1': {
-                name: 'Chat 1',
-                messages: [
-                    {
-                        text: 'Текстовое сообщение 1',
-                        author: 'Igor'
-                    },
-                ],
-            },
-            '2': {
-                name: 'Chat 2',
-                messages: [
-                    {
-                        text: 'Текстовое сообщение 2',
-                        author: 'Igor'
-                    },
-                ],
-            },
-            '3': {
-                name: 'Chat 3',
-                messages: [
-                    {
-                        text: 'Текстовое сообщение 3',
-                        author: 'Igor'
-                    },
-                ],
-            },
-        },
-    };
     //interval = null;
-    templateMessages = ['Hi!', 'Hello!', 'How are you?'];
+    // templateMessages = ['Hi!', 'Hello!', 'How are you?'];
 
     // componentDidMount(){
     //     this.interval = setInterval(() => {
@@ -51,67 +20,31 @@ export class Messenger extends Component {
     //     }, 5000);
     // }
 
-    componentDidUpdate()
-    {
-        const {author} = this.messages[this.messages.length - 1];
-        if(this.messages[this.messages.length - 1].author !== 'Bot'){
-            setTimeout(() => {
-                this.handleMessageSend({text: `Привет, ${author}! Это автоответ бота!`, author: 'Bot'});
-            }, 2000);
-        }
-    }
-
-    handleMessageSend = (message) => {
-        const {chats} = this.state;
-        const {match} = this.props;
-
-        const chat = chats[match.params.id];
-        const messages = this.messages.concat([message]);
-        chat.messages = messages;
-
-        this.setState({
-            chats: {
-                ...chats,
-                [match.params.id]: chat
-            }
-        });
-    }
-
-    get messages(){
-        const {chats} = this.state;
-        const {match} = this.props;
-
-        let messages = null;
-
-        if(match && chats[match.params.id]){
-            messages = chats[match.params.id].messages;
-        }
-
-        return messages;
-    }
+    // componentDidUpdate()
+    // {
+    //     const {author} = this.messages[this.messages.length - 1];
+    //     if(this.messages[this.messages.length - 1].author !== 'Bot'){
+    //         setTimeout(() => {
+    //             this.handleMessageSend({text: `Привет, ${author}! Это автоответ бота!`, author: 'Bot'});
+    //         }, 2000);
+    //     }
+    // }
 
     render()
     {
-        const {chats} = this.state;
-
-        let chatsComponents = [];
-        for(let chatKey in chats){
-            chatsComponents.push(
-                <ListItem key={chatKey}>
-                    <Link to={`/chats/${chatKey}`}>
-                        <ListItemText primary={chats[chatKey].name} />
-                    </Link>
-                </ListItem>
-            );
-        }
-
+        const {chats, messages, sendMessage} = this.props
         return (
             <div className="messenger">
                 <List>
-                    {chatsComponents}
+                    {chats.map((chat, index) => 
+                        <ListItem key={index}>
+                        <Link to={chat.link}>
+                            <ListItemText primary={chat.name} />
+                        </Link>
+                    </ListItem>)}
                 </List>
-                {this.messages ? <MessageList items={this.messages} /> : 'Пожалуйста, выберите чат'}
-                {this.messages && <MessageForm onSend={this.handleMessageSend} />}
+                {messages ? <MessageList items={messages} /> : 'Пожалуйста, выберите чат'}
+                {messages && <MessageForm onSend={sendMessage} />}
             </div>
         );
     }
