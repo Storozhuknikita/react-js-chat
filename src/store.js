@@ -42,8 +42,8 @@ export function initStore(){
         composeWithDevTools(
         applyMiddleware(
             routerMiddleware(history),
-            createLogger(),
-            loggerMiddteware,
+            //createLogger(),
+            //loggerMiddteware,
             botMiddteware,
             apiMiddleware,
             thunk,

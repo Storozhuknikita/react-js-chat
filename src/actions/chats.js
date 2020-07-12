@@ -44,8 +44,8 @@ export const chatsLoadApi = () => {
     return async (dispatch) => {
         try {
             dispatch(chatsLoadApiRequest());
-            // const result = (await fetch('/api/chats.json'));
-            const result = (await fetch('https://localhost:4000/chats'));
+            const result = (await fetch('/api/chats.json'));
+            //const result = (await fetch('http://localhost:5000/chats'));
             dispatch(chatsLoadApiSuccess(await result.json()));
         } catch(error){
             dispatch(chatsLoadApiFailture(error));

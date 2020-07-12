@@ -1,9 +1,6 @@
-body {
-  background-color: orange; }
+.message{background-color:lightgreen;padding:5px 15px;border-radius:20px;font-size:20px;margin:5px}.message-owner{align-self:flex-end}.message-bot{align-self:flex-start}.message-sender{font-size:14px;color:grey}
 
-.message-item {
-  color: orange; }
+.messages-list{display:flex;flex-direction:column;height:50%;background-color:aquamarine;padding:20px;width:calc(100% - 40px);overflow-y:scroll}
 
-.message:hover {
-  color: red; }
+.messenger{width:50%;height:100%;margin:auto;display:flex;align-self:center;flex-direction:column;justify-content:center}
 
