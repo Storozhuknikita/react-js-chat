@@ -1,49 +1,21 @@
-import {CHATS_LOAD, CHATS_SEND, CHATS_ADD} from 'actions/chats';
+import {
+    CHATS_SEND, 
+    CHATS_ADD,
+    CHATS_LOAD_REQUEST,
+    CHATS_LOAD_SUCCESS,
+    CHATS_LOAD_FAILTURE,
+} from 'actions/chats';
 import update from 'react-addons-update';
-
-const dataBackend = {
-    '1': {
-        name: 'Chat 1',
-        messages: [
-            {
-                text: 'Текстовое сообщение 1',
-                author: 'Igor'
-            },
-        ],
-    },
-    '2': {
-        name: 'Chat 2',
-        messages: [
-            {
-                text: 'Текстовое сообщение 2',
-                author: 'Igor'
-            },
-        ],
-    },
-    '3': {
-        name: 'Chat 3',
-        messages: [
-            {
-                text: 'Текстовое сообщение 3',
-                author: 'Igor'
-            },
-        ],
-    },
-};
 
 const initialState = {
     entries: {}, //Chats
     loading: false,
+    error: false,
 };
 
 export const chatsReducer = (state = initialState, action) => {
     switch(action.type)
     {
-        case CHATS_LOAD:
-            return {
-                ...state,
-                entries: dataBackend,
-            };
         case CHATS_SEND:
             //ES5
             // return Object.assign({}, {
@@ -89,6 +61,24 @@ export const chatsReducer = (state = initialState, action) => {
                         }
                     }}
                 });
+            case CHATS_LOAD_REQUEST:
+                return {
+                    ...state,
+                    loading: true,
+                }
+            case CHATS_LOAD_SUCCESS:
+                return {
+                    ...state,
+                    loading: false,
+                    entries: action.payload,
+                }
+            case CHATS_LOAD_FAILTURE:
+                return {
+                    ...state,
+                    loading: false,
+                    error: true,
+                }
+
         default:
             return state;
     }

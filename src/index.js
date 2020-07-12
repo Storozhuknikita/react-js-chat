@@ -3,19 +3,25 @@ import ReactDom from 'react-dom';
 import {BrowserRouter, Switch, Route, HashRouter, MemoryRouter, StaticRouter} from 'react-router-dom';
 import {Provider} from 'react-redux';
 import {ConnectedRouter} from 'connected-react-router';
+import {PersistGate} from 'redux-persist/integration/react';
 
 import {routes} from './routes';
-import {store, history} from './store';
+import {initStore, history} from './store';
+import { persistStore } from 'redux-persist';
+
+const {store, persistor} = initStore();
 
 ReactDom.render(
     <Provider store={store}>
-        <ConnectedRouter history={history}>
-            <> 
-            <Switch>
-                {routes.map((route, index) => <Route key={index} {...route} />)}
-            </Switch>
-            </>
-        </ConnectedRouter>
+        <PersistGate loading={null} persistor={persistor}>
+            <ConnectedRouter history={history}>
+                <> 
+                <Switch>
+                    {routes.map((route, index) => <Route key={index} {...route} />)}
+                </Switch>
+                </>
+            </ConnectedRouter>
+        </PersistGate>
     </Provider>,
     document.getElementById('root')
 );

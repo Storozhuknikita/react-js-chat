@@ -8,31 +8,18 @@ import {MessageList} from 'components/MessageList';
 import './Messenger.css';
 
 export class Messenger extends Component {
-    //interval = null;
-    // templateMessages = ['Hi!', 'Hello!', 'How are you?'];
-
-    // componentDidMount(){
-    //     this.interval = setInterval(() => {
-    //         const randIndex = Math.floor(Math.random() * this.templateMessages.length);
-    //         this.setState({
-    //             messages: this.state.messages.concat([{text: this.templateMessages[randIndex], author: 'Igor'}])
-    //         });
-    //     }, 5000);
-    // }
-
-    // componentDidUpdate()
-    // {
-    //     const {author} = this.messages[this.messages.length - 1];
-    //     if(this.messages[this.messages.length - 1].author !== 'Bot'){
-    //         setTimeout(() => {
-    //             this.handleMessageSend({text: `Привет, ${author}! Это автоответ бота!`, author: 'Bot'});
-    //         }, 2000);
-    //     }
-    // }
-
     render()
     {
-        const {chats, messages, sendMessage, addChat} = this.props
+        const {chats, messages, sendMessage, addChat, isLoading, isError} = this.props;
+
+        if(isLoading){
+            return (<div>Loading...</div>);
+        }
+
+        if(isError){
+            return (<div>Error. Обновите страницу...</div>);
+        }
+
         return (
             <div className="messenger">
                 <List>
